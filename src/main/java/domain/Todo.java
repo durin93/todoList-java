@@ -19,18 +19,19 @@ public class Todo {
 
     private Boolean complete;
 
-    public Todo (){}
+    public Todo() {
+    }
 
-    public Todo (String work, int id){
+    public Todo(String work, int id) {
         this.work = work;
-        this.id = (long)id;
+        this.id = (long) id;
         this.createDate = currentTime();
         references = new Todos();
         complete = false;
     }
 
     public static Todo of(String work, int id) {
-        return  new Todo(work, id);
+        return new Todo(work, id);
     }
 
 
@@ -50,40 +51,47 @@ public class Todo {
         return modifiedDate;
     }
 
+
+    public Boolean isComplete() {
+        return complete;
+    }
+
+    public Todos references() {
+        return references;
+    }
+
+
     public void update(String work) {
         this.work = work;
         this.modifiedDate = currentTime();
     }
 
-    public String currentTime(){
+    public String currentTime() {
         return new SimpleDateFormat("yyyy/MM/dd hh:mm:ss").format(new Date());
     }
 
     public void addReference(Todo todo) throws CannotProceedException {
 
-        if(references.existReference(todo)){
-            throw new CannotProceedException("이미 추가된 참조");
+        if (references.existReference(todo)) {
+            throw new CannotProceedException("이미 추가된 선행 할일입니다.");
         }
 
         references.add(todo);
     }
 
-    public boolean canComplete(){
-        if(references.allComplete() || references.size()==0){
+    public boolean canComplete() {
+        if (references.allComplete() || references.size() == 0) {
             return true;
         }
         return false;
     }
 
-    public void complete() {
+    public void complete() throws CannotProceedException {
+        if (this.complete) {
+            throw new CannotProceedException("이미 완료된 일입니다.");
+        }
         this.complete = true;
     }
-
-    public Boolean isComplete(){
-        return complete;
-    }
-
-
 
     @Override
     public boolean equals(Object o) {
@@ -122,4 +130,5 @@ public class Todo {
                 ", complete=" + complete +
                 '}';
     }
+
 }

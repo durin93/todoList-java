@@ -26,13 +26,13 @@ public class Todos {
         todos.add(todo);
     }
 
-    public void update(int id, String work) {
-        todos.get(id - 1).update(work);
+    public void update(int id, String work) throws CannotProceedException {
+        search(id).update(work);
     }
 
     public Todo search(int id) {
         if (todos.size() < id) {
-            throw new IndexOutOfBoundsException("없는 할일이다.");
+            throw new IndexOutOfBoundsException("존재하지 않는 일 또는 참조입니다.");
         }
         return todos.get(id - 1);
     }
@@ -46,7 +46,7 @@ public class Todos {
         Todo todo = search(id);
         log.debug("Todos complete beforeCheck {}", todo.toString());
         if (!todo.canComplete()) {
-            throw new CannotProceedException("참조걸린 녀석이있다.");
+            throw new CannotProceedException("선행 해야할 일이 있습니다.");
         }
         todo.complete();
         log.debug("Todos complete afterCheck {}", todo.toString());
@@ -71,5 +71,11 @@ public class Todos {
         }
         return false;
     }
+
+
+    public List<Todo> todos(){
+        return todos;
+    }
+
 
 }

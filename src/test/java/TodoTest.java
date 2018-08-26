@@ -42,7 +42,7 @@ public class TodoTest {
     }
 
     @Test
-    public void update(){
+    public void update() throws CannotProceedException {
         add();
         todos.update(1,"설거지");
         assertThat(todos.search(1).getWork(), is("설거지"));
@@ -50,7 +50,7 @@ public class TodoTest {
 
 
     @Test
-    public void search(){
+    public void search() throws CannotProceedException {
         add();
         assertThat(todos.search(1), is(todos.search(1)));
         log.debug(todos.search(1).toString());
