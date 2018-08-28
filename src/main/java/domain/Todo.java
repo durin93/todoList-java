@@ -15,9 +15,9 @@ public class Todo {
 
     private String modifiedDate;
 
-    private Todos references;
+    private References references;
 
-    private Boolean complete;
+    private Status status;
 
     public Todo() {
     }
@@ -26,8 +26,8 @@ public class Todo {
         this.work = work;
         this.id = (long) id;
         this.createDate = currentTime();
-        references = new Todos();
-        complete = false;
+        references = new References();
+        status = new Status();
     }
 
     public static Todo of(String work, int id) {
@@ -53,10 +53,10 @@ public class Todo {
 
 
     public Boolean isComplete() {
-        return complete;
+        return status.isComplete();
     }
 
-    public Todos references() {
+    public References references() {
         return references;
     }
 
@@ -87,10 +87,10 @@ public class Todo {
     }
 
     public void complete() throws CannotProceedException {
-        if (this.complete) {
+        if (status.isComplete()) {
             throw new CannotProceedException("이미 완료된 일입니다.");
         }
-        this.complete = true;
+        status.complete();
     }
 
     @Override
@@ -105,7 +105,7 @@ public class Todo {
         if (createDate != null ? !createDate.equals(todo.createDate) : todo.createDate != null) return false;
         if (modifiedDate != null ? !modifiedDate.equals(todo.modifiedDate) : todo.modifiedDate != null) return false;
         if (references != null ? !references.equals(todo.references) : todo.references != null) return false;
-        return complete != null ? complete.equals(todo.complete) : todo.complete == null;
+        return status != null ? status.equals(todo.status) : todo.status == null;
     }
 
     @Override
@@ -115,7 +115,7 @@ public class Todo {
         result = 31 * result + (createDate != null ? createDate.hashCode() : 0);
         result = 31 * result + (modifiedDate != null ? modifiedDate.hashCode() : 0);
         result = 31 * result + (references != null ? references.hashCode() : 0);
-        result = 31 * result + (complete != null ? complete.hashCode() : 0);
+        result = 31 * result + (status != null ? status.hashCode() : 0);
         return result;
     }
 
@@ -127,7 +127,7 @@ public class Todo {
                 ", createDate='" + createDate + '\'' +
                 ", modifiedDate='" + modifiedDate + '\'' +
                 ", references=" + references +
-                ", complete=" + complete +
+                ", complete=" + status +
                 '}';
     }
 

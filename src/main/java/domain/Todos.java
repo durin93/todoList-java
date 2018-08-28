@@ -52,9 +52,6 @@ public class Todos {
         log.debug("Todos complete afterCheck {}", todo.toString());
     }
 
-    public int size() {
-        return todos.size();
-    }
 
     public boolean allComplete() {
         for (Todo todo : todos) {
@@ -65,12 +62,6 @@ public class Todos {
         return true;
     }
 
-    public boolean existReference(Todo todo) {
-        if (todos.contains(todo)) {
-            return true;
-        }
-        return false;
-    }
 
 
     public List<Todo> todos(){

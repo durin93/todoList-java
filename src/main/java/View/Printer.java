@@ -1,4 +1,8 @@
-package domain;
+package View;
+
+import domain.References;
+import domain.Todo;
+import domain.Todos;
 
 public class Printer {
 
@@ -30,8 +34,8 @@ public class Printer {
         }
     }
 
-    public static void showReferences(Todos todos){
-        for (Todo todo: todos.todos()) {
+    public static void showReferences(References references){
+        for (Todo todo: references.references()) {
             System.out.print("@");
             System.out.print(todo.getId());
             System.out.print(" ");

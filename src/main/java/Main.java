@@ -1,4 +1,4 @@
-import domain.Printer;
+import View.Printer;
 import domain.Todos;
 
 import javax.naming.CannotProceedException;
